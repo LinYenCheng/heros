@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import { camelizeKeys } from 'humps';
 
 let isModalOpen = false;
-const API_URL = 'http://hahow-recruit.herokuapp.com';
+const API_URL = 'https://hahow-recruit.herokuapp.com';
 
 /**
  *

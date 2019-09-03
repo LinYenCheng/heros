@@ -4,7 +4,7 @@ import reduxApi from 'redux-api';
 import Swal from 'sweetalert2';
 import adapterFetch from 'redux-api/lib/adapters/fetch';
 
-const API_URL = 'http://hahow-recruit.herokuapp.com';
+const API_URL = 'https://hahow-recruit.herokuapp.com';
 let isModalOpen = false;
 // redux-api documentation: https://github.com/lexich/redux-api/blob/master/docs/DOCS.md
 export default reduxApi({
