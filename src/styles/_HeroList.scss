@@ -1,0 +1,36 @@
+@import './variable';
+
+a {
+
+  &:active,
+  &:hover {
+    .hero__card {
+      opacity: 1;
+
+      img {
+        transform: scale(1.2);
+        transition: all 0.5s;
+      }
+    }
+  }
+
+  .hero__card {
+    opacity: 0.6;
+
+    img {
+      width: 100%;
+    }
+
+    .card__image-container {
+      overflow: hidden;
+      text-align: center;
+    }
+
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24);
+  }
+
+  .hero__card--select {
+    opacity: 1;
+    box-shadow: inset 0px -5px $second-color;
+  }
+}

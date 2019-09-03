@@ -5,22 +5,17 @@ import Swal from 'sweetalert2';
 import adapterFetch from 'redux-api/lib/adapters/fetch';
 
 const API_URL = 'http://hahow-recruit.herokuapp.com';
-const jsonOptions = {
-  headers: {
-    'Content-Type': 'application/json',
-  },
-};
 let isModalOpen = false;
 // redux-api documentation: https://github.com/lexich/redux-api/blob/master/docs/DOCS.md
 export default reduxApi({
-  heroes: {
-    url: '/heroes',
-    options: jsonOptions,
+  heroProfile: {
+    url: '/heroes/:heroId/profile',
+    crud: true,
   },
 })
   .use('responseHandler', (err, data) => {
     if (err) {
-      console.log(err);
+      // console.log(err);
       if (err.status === 500 || err) {
         if (!isModalOpen) {
           Swal({
@@ -35,13 +30,11 @@ export default reduxApi({
         }
       }
     } else if (data) {
-      if (data && data.length > 0) {
-        return { status: 1, result: camelizeKeys(data) };
-      }
+      return { status: 1, result: camelizeKeys(data) };
     }
     return { status: 0 };
   })
-  .use('options', (url, params, getState) => {
+  .use('options', () => {
     const headers = {
       'Content-Type': 'application/json',
     };

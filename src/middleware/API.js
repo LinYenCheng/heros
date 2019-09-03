@@ -49,26 +49,11 @@ const API = axios.create({
   },
 });
 
-// API.interceptors.request.use(
-//   (config) => {
-//     return config;
-//   },
-//   (error) => {
-//     console.warn('Error status', error.response);
-//     // return Promise.reject(error)
-//     if (error.response) {
-//       return parseError(error.response.data);
-//     }
-//     return Promise.reject(error);
-//   },
-// );
-
 // response parse
 API.interceptors.response.use(
   response => parseBody(camelizeKeys(response)),
   error => {
-    console.warn('Error status', error.response);
-    // return Promise.reject(error)
+    console.warn('Error status', error);
     if (error.response) {
       if (error.response.status === 500) {
         if (!isModalOpen) {

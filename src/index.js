@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
 
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { createLogger } from 'redux-logger';
@@ -21,12 +20,7 @@ const store = createStore(
   ),
 );
 
-ReactDOM.render(
-  <Router>
-    <Root store={store} />
-  </Router>,
-  document.getElementById('root'),
-);
+ReactDOM.render(<Root store={store} />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
