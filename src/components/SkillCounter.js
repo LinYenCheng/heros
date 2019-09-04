@@ -1,8 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
 
 function SkillCounter(props) {
-  const { skill, nowProfile, experiencePoint, setNowProfile, setExperiencePoint } = props;
+  const {
+    skill,
+    nowProfile,
+    setNowProfile,
+    experiencePoint,
+    addExperiencePoint,
+    reduceExperiencePoint,
+  } = props;
 
   function showAlert(text) {
     Swal({
@@ -19,7 +27,7 @@ function SkillCounter(props) {
     if (experiencePoint > 0) {
       tempProfile[skill] += 1;
       setNowProfile(tempProfile);
-      setExperiencePoint(experiencePoint - 1);
+      reduceExperiencePoint();
     } else {
       showAlert('請先減少其他點數');
     }
@@ -30,7 +38,7 @@ function SkillCounter(props) {
     if (tempProfile[skill] > 0) {
       tempProfile[skill] -= 1;
       setNowProfile(tempProfile);
-      setExperiencePoint(experiencePoint + 1);
+      addExperiencePoint();
     } else {
       showAlert('點數不足');
     }
@@ -49,5 +57,14 @@ function SkillCounter(props) {
     </div>
   );
 }
+
+SkillCounter.propTypes = {
+  skill: PropTypes.string.isRequired,
+  setNowProfile: PropTypes.func.isRequired,
+  experiencePoint: PropTypes.number.isRequired,
+  addExperiencePoint: PropTypes.func.isRequired,
+  reduceExperiencePoint: PropTypes.func.isRequired,
+  nowProfile: PropTypes.object.isRequired,
+};
 
 export default SkillCounter;

@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
 
-import SkillCounter from '../components/SkillCounter';
+import SkillCounter from './SkillCounter';
+import useCounter from '../hooks/useCounter';
 import API from '../middleware/API';
 
 function HeroProfile(props) {
@@ -15,7 +16,13 @@ function HeroProfile(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [isPatching, setIsPatching] = useState(false);
   const [nowProfile, setNowProfile] = useState(false);
-  const [experiencePoint, setExperiencePoint] = useState(0);
+  const {
+    count: experiencePoint,
+    increment: addExperiencePoint,
+    decrement: reduceExperiencePoint,
+    reset: resetExperiencePoint,
+  } = useCounter(0);
+
   const SkillForm = styled.div`
     position: absolute;
     bottom: 0px;
@@ -29,10 +36,10 @@ function HeroProfile(props) {
       API.get(`/heroes/${heroId}/profile`).then(dataProfile => {
         setNowProfile(dataProfile);
         setIsLoading(false);
-        setExperiencePoint(0);
+        resetExperiencePoint();
       });
     }
-  }, [isLoading, heroId]);
+  });
 
   useEffect(() => {
     if (isPatching) {
@@ -43,11 +50,11 @@ function HeroProfile(props) {
         setNowProfile(dataProfile);
         if (res === 'OK') {
           setIsPatching(false);
-          setExperiencePoint(0);
+          resetExperiencePoint();
         }
       });
     }
-  }, [isPatching, heroId]);
+  });
 
   useEffect(() => {
     setIsLoading(true);
@@ -78,7 +85,8 @@ function HeroProfile(props) {
             experiencePoint={experiencePoint}
             nowProfile={nowProfile}
             setNowProfile={setNowProfile}
-            setExperiencePoint={setExperiencePoint}
+            addExperiencePoint={addExperiencePoint}
+            reduceExperiencePoint={reduceExperiencePoint}
           />
         ))}
         <SkillForm>
@@ -101,7 +109,11 @@ function HeroProfile(props) {
 }
 
 HeroProfile.propTypes = {
-  match: PropTypes.object.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      heroId: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default HeroProfile;

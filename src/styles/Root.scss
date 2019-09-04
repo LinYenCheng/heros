@@ -5,6 +5,7 @@
 body {
   font-family: PingFang TC, 黑體-繁, Heiti TC, 蘋果儷中黑, Apple LiGothic Medium, 微軟正黑體,
     Microsoft JhengHei, sans-serif !important;
+  background-color: #f3f3f1;
 }
 
 h1,
@@ -13,7 +14,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: $primary-color
+  color: $primary-color;
 }
 
 .center {
@@ -30,4 +31,8 @@ h6 {
   @media screen and (max-width: 767px) {
     display: none;
   }
+}
+
+.swal2-popup {
+  font-size: 1.6rem !important;
 }

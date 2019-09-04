@@ -14,11 +14,11 @@ function HeroCard(props) {
         location: { pathname },
       },
     } = props;
-    let heroId = 0;
     const match = matchPath(pathname, {
       path: '/heros/:heroId',
     });
 
+    let heroId = 0;
     if (match && match.params.heroId) {
       heroId = match.params.heroId;
     }
@@ -53,7 +53,11 @@ HeroCard.propTypes = {
     image: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
   }).isRequired,
-  history: PropTypes.object.isRequired,
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      pathname: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
 };
 
 export default withRouter(HeroCard);

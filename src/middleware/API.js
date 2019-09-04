@@ -7,21 +7,6 @@ let isModalOpen = false;
 const API_URL = 'https://hahow-recruit.herokuapp.com';
 
 /**
- *
- * parse error response
- */
-function parseError(messages) {
-  // error
-  if (messages) {
-    if (messages instanceof Array) {
-      return Promise.reject({ messages });
-    }
-    return Promise.reject({ messages: [messages] });
-  }
-  return Promise.reject({ messages: ['錯誤'] });
-}
-
-/**
  * parse response
  */
 function parseBody(response) {
@@ -34,7 +19,7 @@ function parseBody(response) {
     }
     return response.data || response.statusText;
   }
-  return this.parseError(response.data.messages);
+  return false;
 }
 
 /**
@@ -53,7 +38,7 @@ const API = axios.create({
 API.interceptors.response.use(
   response => parseBody(camelizeKeys(response)),
   error => {
-    console.warn('Error status', error);
+    // console.warn('Error status', error);
     if (error.response) {
       if (error.response.status === 500) {
         if (!isModalOpen) {
@@ -68,7 +53,7 @@ API.interceptors.response.use(
           });
         }
       }
-      return parseError(error.response.data);
+      return false;
     }
     return Promise.reject(error);
   },
