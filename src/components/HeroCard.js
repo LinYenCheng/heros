@@ -36,7 +36,7 @@ function HeroCard(props) {
       <div className="col-xs-6 col-sm-6 col-md-3 padding--mobile">
         <div className={cardClass}>
           <div className="card__image-container">
-            <img src={image} alt="..." />
+            <img src={image.replace('http', 'https')} alt="..." />
           </div>
           <div className="caption center">
             <h3>{name}</h3>
@@ -48,7 +48,11 @@ function HeroCard(props) {
 }
 
 HeroCard.propTypes = {
-  hero: PropTypes.object.isRequired,
+  hero: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+  }).isRequired,
   history: PropTypes.object.isRequired,
 };
 
