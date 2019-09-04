@@ -33,7 +33,7 @@ function HeroCard(props) {
 
   return (
     <Link to={`/heros/${id}`}>
-      <div className="col-sm-6 col-md-3">
+      <div className="col-xs-6 col-sm-6 col-md-3 padding--mobile">
         <div className={cardClass}>
           <div className="card__image-container">
             <img src={image} alt="..." />

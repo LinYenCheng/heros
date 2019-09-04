@@ -4,7 +4,7 @@ import { Route, withRouter } from 'react-router-dom';
 
 import '../styles/Root.scss';
 import API from '../middleware/API';
-import HeroProfile from '../containers/HeroProfile';
+import HeroProfile from './HeroProfile';
 import HeroCard from './HeroCard';
 
 function HeroList(props) {

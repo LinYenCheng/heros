@@ -29,10 +29,10 @@ function parseBody(response) {
     if (process.env.NODE_ENV === 'development') {
       console.log({
         url: response.config.url,
-        result: response.data,
+        result: response.data || response.statusText,
       });
     }
-    return response.data;
+    return response.data || response.statusText;
   }
   return this.parseError(response.data.messages);
 }

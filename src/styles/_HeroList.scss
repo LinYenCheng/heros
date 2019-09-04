@@ -33,4 +33,11 @@ a {
     opacity: 1;
     box-shadow: inset 0px -5px $second-color;
   }
+
+  .padding--mobile {
+    @media screen and (max-width: 767px) {
+      padding-right: 5px;
+      padding-left: 5px;
+    }
+  }
 }

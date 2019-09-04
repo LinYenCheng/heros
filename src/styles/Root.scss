@@ -1,6 +1,6 @@
 @import './variable';
 @import './HeroList';
-// @import './SkillCounter';
+@import './SkillCounter';
 
 body {
   font-family: PingFang TC, 黑體-繁, Heiti TC, 蘋果儷中黑, Apple LiGothic Medium, 微軟正黑體,
@@ -18,4 +18,16 @@ h6 {
 
 .center {
   text-align: center;
+}
+
+.desktop--hide {
+  @media screen and (min-width: 767px) {
+    display: none;
+  }
+}
+
+.mobile--hide {
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
 }
