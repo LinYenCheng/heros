@@ -1,8 +1,8 @@
-@import './variable';
+@import './common/common';
 
 .skill__container {
   font-size: 2em;
-  margin-top: 15px;
+  margin-top: 20px;
 
   .skill__title {
     color: $primary-color;
@@ -17,5 +17,11 @@
     text-align: center;
   }
 
-  .skill__button {}
+  .skill__button {
+    @include pc-width {
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
 }

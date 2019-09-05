@@ -1,11 +1,13 @@
-@import './variable';
+@import './common/common';
 @import './HeroList';
+@import './HeroProfile';
 @import './SkillCounter';
 
 body {
   font-family: PingFang TC, 黑體-繁, Heiti TC, 蘋果儷中黑, Apple LiGothic Medium, 微軟正黑體,
     Microsoft JhengHei, sans-serif !important;
   background-color: #f3f3f1;
+  padding-bottom: 20px;
 }
 
 h1,
@@ -21,16 +23,32 @@ h6 {
   text-align: center;
 }
 
+.div--inline-block {
+  display: inline-block;
+}
+
+.cursor--not-allowed {
+  cursor: not-allowed;
+}
+
 .desktop--hide {
-  @media screen and (min-width: 767px) {
+  @include pc-width {
     display: none;
   }
 }
 
 .mobile--hide {
-  @media screen and (max-width: 767px) {
+  @include phone-width {
     display: none;
   }
+}
+
+.col-md-12 {
+  margin-top: 20px;
+}
+
+.color--warn {
+  color: $second-color;
 }
 
 .swal2-popup {

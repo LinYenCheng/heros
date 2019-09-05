@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import Swal from 'sweetalert2';
+import classNames from 'classnames';
 
 import SkillCounter from './SkillCounter';
 import useCounter from '../hooks/useCounter';
 import API from '../middleware/API';
+import SkillChart from './SkillChart';
 
 function HeroProfile(props) {
   const {
@@ -23,13 +24,19 @@ function HeroProfile(props) {
     reset: resetExperiencePoint,
   } = useCounter(0);
 
-  const SkillForm = styled.div`
-    position: absolute;
-    bottom: 0px;
-    right: 15px;
-  `;
+  const warnClass = classNames({
+    'color--warn': experiencePoint !== 0,
+    center: true,
+  });
+
+  const btnSummitClass = classNames({
+    btn: true,
+    'btn-default': true,
+    'cursor--not-allowed': experiencePoint !== 0,
+  });
 
   let blockSkillForm = '';
+  let strButtonTitle = '儲存';
 
   useEffect(() => {
     if (isLoading) {
@@ -43,14 +50,20 @@ function HeroProfile(props) {
 
   useEffect(() => {
     if (isPatching) {
-      const dataProfile = JSON.parse(JSON.stringify(nowProfile));
-      API.patch(`/heroes/${heroId}/profile`, dataProfile).then(res => {
-        // console.log(res);
-        setIsPatching(false);
-        setNowProfile(dataProfile);
+      API.patch(`/heroes/${heroId}/profile`, nowProfile).then(res => {
         if (res === 'OK') {
-          setIsPatching(false);
-          resetExperiencePoint();
+          Swal({
+            type: 'success',
+            title: '修改成功',
+            showConfirmButton: false,
+            showCloseButton: false,
+            timer: 1000,
+            onClose: () => {
+              setIsPatching(false);
+              setNowProfile(nowProfile);
+              resetExperiencePoint();
+            },
+          });
         }
       });
     }
@@ -67,7 +80,7 @@ function HeroProfile(props) {
       // 提醒
       Swal({
         type: 'info',
-        title: '尚有剩餘點數',
+        title: '尚有點數',
         showConfirmButton: false,
         showCloseButton: true,
         timer: 1000,
@@ -75,37 +88,55 @@ function HeroProfile(props) {
     }
   }
 
+  if (experiencePoint !== 0) strButtonTitle = '尚有點數';
+
   if (nowProfile && !isLoading && !isPatching) {
     blockSkillForm = (
       <>
-        {Object.keys(nowProfile).map(key => (
-          <SkillCounter
-            key={key}
-            skill={key}
-            experiencePoint={experiencePoint}
-            nowProfile={nowProfile}
-            setNowProfile={setNowProfile}
-            addExperiencePoint={addExperiencePoint}
-            reduceExperiencePoint={reduceExperiencePoint}
-          />
-        ))}
-        <SkillForm>
-          <h4>
-            <span>{`剩餘點數: ${experiencePoint}`}</span>
-          </h4>
-          <button type="button" className="btn btn-default" onClick={patchProfile}>
-            儲存
-          </button>
-        </SkillForm>
+        <div className="col-sm-12 col-md-8">
+          <div className="div--inline-block">
+            {Object.keys(nowProfile).map(key => (
+              <SkillCounter
+                key={key}
+                skill={key}
+                experiencePoint={experiencePoint}
+                nowProfile={nowProfile}
+                setNowProfile={setNowProfile}
+                addExperiencePoint={addExperiencePoint}
+                reduceExperiencePoint={reduceExperiencePoint}
+              />
+            ))}
+          </div>
+          <div
+            className="div--inline-block center mobile--hide"
+            style={{ verticalAlign: 'top', marginLeft: '15px' }}
+          >
+            <SkillChart nowProfile={nowProfile} />
+          </div>
+        </div>
+        <div className="col-sm-12 col-md-4">
+          <div className="profile__form">
+            <h4>
+              <span>剩餘點數:</span>
+              <span className={warnClass} style={{ minWidth: '40px', display: 'inline-block' }}>
+                {experiencePoint}
+              </span>
+            </h4>
+            <button
+              type="button"
+              className={btnSummitClass}
+              title={strButtonTitle}
+              onClick={patchProfile}
+            >
+              {strButtonTitle}
+            </button>
+          </div>
+        </div>
       </>
     );
   }
 
-  return (
-    <div className="row">
-      <div className="col-md-12">{blockSkillForm}</div>
-    </div>
-  );
+  return <div className="row profile__container">{blockSkillForm}</div>;
 }
 
 HeroProfile.propTypes = {

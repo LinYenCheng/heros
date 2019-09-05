@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
+import classNames from 'classnames';
 
 function SkillCounter(props) {
   const {
@@ -11,6 +12,11 @@ function SkillCounter(props) {
     addExperiencePoint,
     reduceExperiencePoint,
   } = props;
+
+  const warnClass = classNames({
+    skill__value: true,
+    'color--warn': nowProfile[skill] < 4,
+  });
 
   function showAlert(text) {
     Swal({
@@ -40,17 +46,17 @@ function SkillCounter(props) {
       setNowProfile(tempProfile);
       addExperiencePoint();
     } else {
-      showAlert('點數不足');
+      showAlert('技能點數不能為負');
     }
   }
 
   return (
     <div className="skill__container">
-      <span className="skill__title">{skill}</span>
+      <span className="skill__title">{skill.toUpperCase()}</span>
       <button type="button" className="btn skill__button" onClick={addSkillPoint}>
         <span className="glyphicon glyphicon-plus" />
       </button>
-      <span className="skill__value">{nowProfile[skill]}</span>
+      <span className={warnClass}>{nowProfile[skill]}</span>
       <button type="button" className="btn skill__button" onClick={reduceSkillPoint}>
         <span className="glyphicon glyphicon-minus" />
       </button>

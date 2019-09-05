@@ -1,5 +1,4 @@
 import axios from 'axios';
-import qs from 'qs';
 import Swal from 'sweetalert2';
 import { camelizeKeys } from 'humps';
 
@@ -29,9 +28,6 @@ const API = axios.create({
   baseURL: API_URL,
   timeout: 8000,
   responseType: 'json',
-  paramsSerializer(params) {
-    return qs.stringify(params, { indices: false });
-  },
 });
 
 // response parse

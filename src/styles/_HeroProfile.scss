@@ -1,0 +1,42 @@
+@import './common/common';
+
+.profile__container {
+  @include pc-width {
+    display: flex;
+  }
+
+  .profile__form {
+    @include pc-width {
+      position: absolute;
+      bottom: 0px;
+      right: 15px;
+    }
+
+    @include phone-width {
+      margin-top: 30px;
+    }
+
+    h4 {
+      min-width: 120px;
+    }
+
+    button {
+      font-weight: 600;
+      min-width: 120px;
+      background-color: $second-color;
+      color: #fff;
+
+      @include pc-width {
+        &:hover {
+          border-color: $second-color;
+          background: none;
+          color: $second-color;
+        }
+      }
+    }
+  }
+
+  .rv-xy-plot__series--label-text {
+    font-size: 12px;
+  }
+}

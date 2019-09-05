@@ -37,6 +37,7 @@ function HeroList(props) {
       return <HeroCard key={id} hero={hero} />;
     });
   }
+
   return (
     <div className="container">
       <br />
