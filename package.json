@@ -23,7 +23,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:ci": "CI=true react-scripts test --env=jsdom",
-    "test:coverage": "npm test -- --coverage",
+    "test:coverage": "npm test -- --coverage  && cat ./coverage/lcov.info | coveralls",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -b gh-pages -d build"
@@ -40,6 +40,7 @@
   "devDependencies": {
     "@testing-library/react": "^9.1.4",
     "axios-mock-adapter": "^1.17.0",
+    "coveralls": "^3.0.6",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "eslint": "^6.3.0",

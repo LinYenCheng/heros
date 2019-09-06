@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/LinYenCheng/heros.svg?branch=master)](https://travis-ci.org/LinYenCheng/heros) [![Coverage Status](https://coveralls.io/repos/github/LinYenCheng/heros/badge.svg?branch=master)](https://coveralls.io/github/LinYenCheng/heros?branch=master)
+
 ## 相關連結
 
 1. 專案使用 [Create React App](https://github.com/facebook/create-react-app)
