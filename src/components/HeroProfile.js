@@ -14,7 +14,7 @@ function HeroProfile(props) {
       params: { heroId },
     },
   } = props;
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isPatching, setIsPatching] = useState(false);
   const [nowProfile, setNowProfile] = useState(false);
   const {
@@ -39,16 +39,6 @@ function HeroProfile(props) {
   let strButtonTitle = '儲存';
 
   useEffect(() => {
-    if (isLoading) {
-      API.get(`/heroes/${heroId}/profile`).then(dataProfile => {
-        setNowProfile(dataProfile);
-        setIsLoading(false);
-        resetExperiencePoint();
-      });
-    }
-  });
-
-  useEffect(() => {
     if (isPatching) {
       API.patch(`/heroes/${heroId}/profile`, nowProfile).then(res => {
         if (res === 'OK') {
@@ -70,7 +60,14 @@ function HeroProfile(props) {
   });
 
   useEffect(() => {
-    setIsLoading(true);
+    if (heroId) {
+      setIsLoading(true);
+      API.get(`/heroes/${heroId}/profile`).then(dataProfile => {
+        setNowProfile(dataProfile);
+        setIsLoading(false);
+        resetExperiencePoint();
+      });
+    }
   }, [heroId]);
 
   function patchProfile() {
